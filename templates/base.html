@@ -1,0 +1,18 @@
+<!doctype html>
+<html>
+  <head>
+    {% block head %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
+    <title>{% block title %}Ocean3C App{% endblock %}</title>
+    {% endblock %}
+  </head>
+  <body>
+    <div id="content">{% block content %}<h1>Ocean3C</h1>{% endblock %}</div>
+    <div id="footer">
+      {% block footer %}
+      <div>&copy; Copyright 2020 by Carbonbase</div>
+      {% endblock %}
+    </div>
+  </body>
+</html>
