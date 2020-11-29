@@ -27,7 +27,7 @@ def create_figure():
 
     imported = tf.saved_model.load(model_path)
 
-    converter = tf.compat.v1.lite.TFLiteConverter.from_keras_model_file(imported)
+    converter = tf.compat.v1.lite.TFLiteConverter.from_saved_model(imported)
     
     tflite_model = converter.convert()
     image_path = 'static/2ca98d21a076b2ce.jpg'
