@@ -37,14 +37,15 @@ def create_figure():
     converter.optimizations = [tf.lite.Optimize.DEFAULT]
     converter.target_spec.supported_types = [tf.float16]
     tflite_model = converter.convert()
-    open("uploads/converted_model.tflite", "wb").write(tflite_model)
+
+    with open('ssdlite_mobiledet_cpu_320x320_coco_2020_05_19/model.tflite', 'wb') as f:
+        f.write(tflite_model)
 
     image = 'static/2ca98d21a076b2ce.jpg'
 
     # launch predictor and run inference on an arbitrary image in the validation dataset
     with Image.open(image) as img:
-        data = asarray(img)
-        img_array = Image.fromarray(data)
+        img_array = tf.keras.preprocessing.image.img_to_array(img)
 
     results = tflite_model(img_array)
 
