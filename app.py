@@ -45,7 +45,7 @@ def create_figure():
 
     # launch predictor and run inference on an arbitrary image in the validation dataset
     with Image.open(image) as img:
-        (width, height) = (320 // 2, 320 // 2)
+        (width, height) = (320, 320)
         img_resized = img.resize((width, height))
         img_array = asarray(img_resized, dtype=np.float32)  # first convert to a numpy array
 
