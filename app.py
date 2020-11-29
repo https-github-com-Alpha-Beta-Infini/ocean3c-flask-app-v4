@@ -9,6 +9,7 @@ import matplotlib.patches as patches
 from matplotlib.backends.backend_agg import FigureCanvasAgg as FigureCanvas
 from werkzeug.utils import secure_filename
 import numpy as np
+from numpy import asarray
 
 
 UPLOAD_FOLDER = 'uploads'
@@ -46,8 +47,8 @@ def create_figure():
 
     # launch predictor and run inference on an arbitrary image in the validation dataset
     with Image.open(image) as img:
-        img = tf.keras.preprocessing.image.img_to_array(img)
-        img_array = np.array(img)
+        data = asarray(img)
+        img_array = Image.fromarray(data)
         img_array = {'DecodeJpeg:0': img_array}
     results = tflite_model(img_array)
 
