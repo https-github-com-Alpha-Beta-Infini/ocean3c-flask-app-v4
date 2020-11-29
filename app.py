@@ -26,7 +26,7 @@ def create_figure():
     model_path = "ssdlite_mobiledet_cpu_320x320_coco_2020_05_19"
     h5_model_file_path = "ssdlite_mobiledet_cpu_320x320_coco_2020_05_19"
 
-    tf.keras.models.save_model(model_path, h5_model_file_path, save_format='h5', compile=False)
+    tf.keras.models.save_model(model_path, h5_model_file_path, save_format='h5')
 
     converter = tf.compat.v1.lite.TFLiteConverter.from_keras_model_file(h5_model_file_path)
     
