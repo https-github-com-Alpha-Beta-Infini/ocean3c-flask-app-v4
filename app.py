@@ -8,7 +8,8 @@ import matplotlib.pyplot as plt
 import matplotlib.patches as patches
 from matplotlib.backends.backend_agg import FigureCanvasAgg as FigureCanvas
 from werkzeug.utils import secure_filename
-from numpy import asarray
+import numpy as np
+
 
 UPLOAD_FOLDER = 'uploads'
 ALLOWED_EXTENSIONS = {'jpg'}
@@ -36,7 +37,7 @@ def create_figure():
                                                                     input_shapes)
     # converter.optimizations = [tf.lite.Optimize.DEFAULT]
     # converter.target_spec.supported_types = [tf.float16]
-    # tflite_model = converter.convert()
+    tflite_model = converter.convert()
 
     with open('ssdlite_mobiledet_cpu_320x320_coco_2020_05_19/model.tflite', 'wb') as f:
         f.write(tflite_model)
@@ -45,9 +46,11 @@ def create_figure():
 
     # launch predictor and run inference on an arbitrary image in the validation dataset
     with Image.open(image) as img:
-        img_array = tf.keras.preprocessing.image.img_to_array(img)
+        img = tf.keras.preprocessing.image.img_to_array(img)
+        img_array = np.array(img)
+        img_array = {'DecodeJpeg:0': img_array}
 
-    results = converter(img_array)
+    results = tflite_model(img_array)
 
     # load annotations to decode classification result
     with open('annotations/instances_val2017.json') as f:
