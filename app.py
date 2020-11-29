@@ -71,7 +71,7 @@ def hello_world():
 #     return Response(output.getvalue(), mimetype='image/jpeg')
 
 
-@app.route('/uploads', methods=['GET', 'POST'])
+@app.route('/upload_file', methods=['GET', 'POST'])
 def upload_file():
     if request.method == 'POST':
         # check if the post request has the file part
