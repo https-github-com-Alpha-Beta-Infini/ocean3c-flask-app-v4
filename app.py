@@ -23,12 +23,12 @@ def allowed_file(filename):
 
 def create_figure():
     # launch predictor and run inference on an arbitrary image in the validation dataset
-    model_path = "ssdlite_mobiledet_cpu_320x320_coco_2020_05_19"
-    h5_model_file_path = "ssdlite_mobiledet_cpu_320x320_coco_2020_05_19"
+    graph_def_file = "ssdlite_mobiledet_cpu_320x320_coco_2020_05_19"
 
-    tf.keras.models.save_model(model_path, h5_model_file_path, save_format='h5')
+    input_arrays = ["input_arrays_placeholder"]
+    output_arrays = ["output_arrays_placeholder"]
 
-    converter = tf.compat.v1.lite.TFLiteConverter.from_keras_model_file(h5_model_file_path)
+    converter = tf.compat.v1.lite.TFLiteConverter.from_frozen_graph(graph_def_file, input_arrays, output_arrays)
     
     tflite_model = converter.convert()
     image_path = 'static/2ca98d21a076b2ce.jpg'
