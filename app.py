@@ -45,7 +45,7 @@ def create_figure():
     # launch predictor and run inference on an arbitrary image in the validation dataset
     with Image.open(image) as img:
         img_array = asarray(img)  # first convert to a numpy array
-        img_tensor = tf.compat.v1.lite.convert_to_tensor(img_array)  # then need to convert to a tensor
+        img_tensor = tf.compat.v1.convert_to_tensor(img_array)  # then need to convert to a tensor
         img = {'DecodeJpeg:0': img_tensor}
     results = tflite_model(img)
 
