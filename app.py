@@ -45,23 +45,11 @@ def create_figure():
     image = 'static/2ca98d21a076b2ce.jpg'
 
     # launch predictor and run inference on an arbitrary image in the validation dataset
-    # with Image.open(image) as img:
-        # img = tf.keras.preprocessing.image.img_to_array(img)
-        # img_array = np.array(img)
-        # img_array = {'DecodeJpeg:0': img_array}
-
-    with tf.compat.v1.Session() as sess:
-        imageBuffer = io.BytesIO()
-        img = Image.open(image)
-        img.save(imageBuffer, format="JPEG")
-        img = imageBuffer.getvalue()
-
-        sigmoid_tensor = sess.graph.get_tensor_by_name("raw_outputs/box_encodings:0")
-        predictions = sess.run(sigmoid_tensor,
-                               {'DecodeJpeg/contents:0': img})
-        predictions = np.squeeze(predictions)
-
-    results = tflite_model(predictions)
+    with Image.open(image) as img:
+        img = tf.keras.preprocessing.image.img_to_array(img)
+        img_array = np.array(img)
+        img_array = {'DecodeJpeg:0': img_array}
+    results = tflite_model(img_array)
 
     # load annotations to decode classification result
     with open('annotations/instances_val2017.json') as f:
