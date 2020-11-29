@@ -46,8 +46,8 @@ def create_figure():
     with Image.open(image) as img:
         img_array = asarray(img)  # first convert to a numpy array
         img_tensor = tf.compat.v1.convert_to_tensor(img_array)  # then need to convert to a tensor
-        img = {'DecodeJpeg:0': img_tensor}
-    results = tflite_model(img)
+        # img = {'DecodeJpeg:0': img_tensor}
+    results = tflite_model(img_tensor)
 
     # load annotations to decode classification result
     with open('annotations/instances_val2017.json') as f:
