@@ -26,7 +26,7 @@ def create_figure():
     graph_def_file = "ssdlite_mobiledet_cpu_320x320_coco_2020_05_19/frozen_graph.pb"
 
     input_arrays = ["normalized_input_image_tensor"]
-    output_arrays = ["raw_outputs"]
+    output_arrays = ["raw_outputs/box_encodings", "raw_outputs/class_predictions"]
     input_shapes = {"normalized_input_image_tensor": [1, 320, 320, 3]}
 
     converter = tf.compat.v1.lite.TFLiteConverter.from_frozen_graph(graph_def_file,
