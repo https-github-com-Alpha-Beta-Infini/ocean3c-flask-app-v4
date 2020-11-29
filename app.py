@@ -34,9 +34,9 @@ def create_figure():
                                                                     input_arrays,
                                                                     output_arrays,
                                                                     input_shapes)
-    converter.optimizations = [tf.lite.Optimize.DEFAULT]
-    converter.target_spec.supported_types = [tf.float16]
-    tflite_model = converter.convert()
+    # converter.optimizations = [tf.lite.Optimize.DEFAULT]
+    # converter.target_spec.supported_types = [tf.float16]
+    # tflite_model = converter.convert()
 
     with open('ssdlite_mobiledet_cpu_320x320_coco_2020_05_19/model.tflite', 'wb') as f:
         f.write(tflite_model)
@@ -47,7 +47,7 @@ def create_figure():
     with Image.open(image) as img:
         img_array = tf.keras.preprocessing.image.img_to_array(img)
 
-    results = tflite_model(img_array)
+    results = converter(img_array)
 
     # load annotations to decode classification result
     with open('annotations/instances_val2017.json') as f:
