@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="590fdacc-7dae-44cc-8eec-355393a74e0b" name="Default Changelist" comment="" />
+    <list default="true" id="590fdacc-7dae-44cc-8eec-355393a74e0b" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app.py" beforeDir="false" afterPath="$PROJECT_DIR$/app.py" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -58,7 +61,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1606608779862</updated>
-      <workItem from="1606608780911" duration="13173000" />
+      <workItem from="1606608780911" duration="14109000" />
     </task>
     <servers />
   </component>
@@ -66,10 +69,11 @@
     <option name="version" value="3" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="468" y="229" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1606622266826">
-      <screen x="0" y="23" width="1440" height="847" />
+    <state x="468" y="229" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1606639650767">
+      <screen x="0" y="23" width="1440" height="848" />
     </state>
     <state x="468" y="229" key="#com.intellij.fileTypes.FileTypeChooser/0.23.1440.847@0.23.1440.847" timestamp="1606622266826" />
+    <state x="468" y="229" key="#com.intellij.fileTypes.FileTypeChooser/0.23.1440.848@0.23.1440.848" timestamp="1606639650767" />
     <state x="454" y="168" width="602" height="522" key="find.popup" timestamp="1606611264702">
       <screen x="0" y="23" width="1440" height="847" />
     </state>

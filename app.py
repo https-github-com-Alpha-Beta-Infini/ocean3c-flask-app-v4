@@ -8,6 +8,7 @@ import matplotlib.pyplot as plt
 import matplotlib.patches as patches
 from matplotlib.backends.backend_agg import FigureCanvasAgg as FigureCanvas
 from werkzeug.utils import secure_filename
+from numpy import asarray
 
 UPLOAD_FOLDER = 'uploads'
 ALLOWED_EXTENSIONS = {'jpg'}
@@ -33,18 +34,18 @@ def create_figure():
                                                                     input_arrays,
                                                                     output_arrays,
                                                                     input_shapes)
-    
+    converter.optimizations = [tf.lite.Optimize.DEFAULT]
     tflite_model = converter.convert()
+    open("converted_model.tflite", "wb").write(tflite_model)
+
     image = 'static/2ca98d21a076b2ce.jpg'
 
     # launch predictor and run inference on an arbitrary image in the validation dataset
     with Image.open(image) as img:
-        buffer = io.BytesIO()
-        img.save(buffer, 'jpeg')
-        buffer.seek(0)
-        img_in_bytes = buffer.read()
-        feeds = {'image': img_in_bytes}
-    results = tflite_model(feeds)
+        data = asarray(img)
+        img_array = Image.fromarray(data)
+
+    results = tflite_model(img_array)
 
     # load annotations to decode classification result
     with open('annotations/instances_val2017.json') as f:
