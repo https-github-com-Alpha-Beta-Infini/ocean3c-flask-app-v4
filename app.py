@@ -45,10 +45,7 @@ def create_figure():
 
     # launch predictor and run inference on an arbitrary image in the validation dataset
     with Image.open(image) as img:
-        img_array = asarray(img)  # first convert to a numpy array
-        # img_tensor = tf.compat.v1.convert_to_tensor(img_array)  # then need to convert to a tensor
-        # img = {'DecodeJpeg:0': img_tensor}
-    # results = tflite_model(img)
+        img_array = asarray(img, dtype=np.float32)  # first convert to a numpy array
 
     # Load the TFLite model and allocate tensors.
     interpreter = tf.compat.v1.lite.Interpreter(
@@ -61,8 +58,7 @@ def create_figure():
     output_details = interpreter.get_output_details()
 
     # Test the model on random input data.
-    input_shape = input_details[0]['shape']
-    # input_data = np.array(np.random.random_sample(input_shape), dtype=np.float32)
+    # input_shape = input_details[0]['shape']
     input_data = img_array
     interpreter.set_tensor(input_details[0]['index'], input_data)
 
