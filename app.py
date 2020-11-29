@@ -9,6 +9,7 @@ import matplotlib.patches as patches
 from matplotlib.backends.backend_agg import FigureCanvasAgg as FigureCanvas
 from werkzeug.utils import secure_filename
 from numpy import asarray
+import numpy as np
 
 
 UPLOAD_FOLDER = 'uploads'
@@ -45,9 +46,31 @@ def create_figure():
     # launch predictor and run inference on an arbitrary image in the validation dataset
     with Image.open(image) as img:
         img_array = asarray(img)  # first convert to a numpy array
-        img_tensor = tf.compat.v1.convert_to_tensor(img_array)  # then need to convert to a tensor
+        # img_tensor = tf.compat.v1.convert_to_tensor(img_array)  # then need to convert to a tensor
         # img = {'DecodeJpeg:0': img_tensor}
-    results = tflite_model(img_tensor)
+    # results = tflite_model(img)
+
+    # Load the TFLite model and allocate tensors.
+    interpreter = tf.compat.v1.lite.Interpreter(
+        model_path="ssdlite_mobiledet_cpu_320x320_coco_2020_05_19/model.tflite"
+    )
+    interpreter.allocate_tensors()
+
+    # Get input and output tensors.
+    input_details = interpreter.get_input_details()
+    output_details = interpreter.get_output_details()
+
+    # Test the model on random input data.
+    input_shape = input_details[0]['shape']
+    # input_data = np.array(np.random.random_sample(input_shape), dtype=np.float32)
+    input_data = img_array
+    interpreter.set_tensor(input_details[0]['index'], input_data)
+
+    interpreter.invoke()
+
+    # The function `get_tensor()` returns a copy of the tensor data.
+    # Use `tensor()` in order to get a pointer to the tensor.
+    results = interpreter.get_tensor(output_details[0]['index'])
 
     # load annotations to decode classification result
     with open('annotations/instances_val2017.json') as f:
