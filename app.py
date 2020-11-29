@@ -27,7 +27,7 @@ def create_figure():
 
     input_arrays = ["input"]
     output_arrays = ["raw_outputs"]
-    input_shapes = 1, 320, 320, 3
+    input_shapes = {"input": [1, 320, 320, 3]}
 
     converter = tf.compat.v1.lite.TFLiteConverter.from_frozen_graph(graph_def_file,
                                                                     input_arrays,
