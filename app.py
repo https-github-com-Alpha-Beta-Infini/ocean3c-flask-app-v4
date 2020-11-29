@@ -45,7 +45,9 @@ def create_figure():
 
     # launch predictor and run inference on an arbitrary image in the validation dataset
     with Image.open(image) as img:
-        img_array = asarray(img, dtype=np.float32)  # first convert to a numpy array
+        (width, height) = (320 // 2, 320 // 2)
+        img_resized = img.resize((width, height))
+        img_array = asarray(img_resized, dtype=np.float32)  # first convert to a numpy array
 
     # Load the TFLite model and allocate tensors.
     interpreter = tf.compat.v1.lite.Interpreter(
