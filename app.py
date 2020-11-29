@@ -37,6 +37,7 @@ def create_figure():
     tflite_model = converter.convert()
     image = 'static/2ca98d21a076b2ce.jpg'
 
+    # launch predictor and run inference on an arbitrary image in the validation dataset
     with Image.open(image) as img:
         feeds = {'image': [img.read()]}
     results = tflite_model(feeds)
