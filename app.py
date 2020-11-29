@@ -47,8 +47,6 @@ def create_figure():
 
     # launch predictor and run inference on an arbitrary image in the validation dataset
     with Image.open(image) as img:
-        # data = asarray(img)
-        # img_array = Image.fromarray(data)
         img = tf.image.decode_jpeg(img, channels=3)
         img = {'DecodeJpeg:0': img}
     results = tflite_model(img)
