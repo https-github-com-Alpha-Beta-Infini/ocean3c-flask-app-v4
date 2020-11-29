@@ -36,7 +36,8 @@ def create_figure():
     
     tflite_model = converter.convert()
     image = 'static/2ca98d21a076b2ce.jpg'
-    image = tf.compat.v1.image.decode_jpeg(image)
+    # image = tf.compat.v1.image.decode_jpeg(image)
+    image = Image.open(image)
 
     # image = tf.keras.preprocessing.image_dataset_from_directory(
     #     "uploads", labels='inferred', label_mode='int', class_names=None,
