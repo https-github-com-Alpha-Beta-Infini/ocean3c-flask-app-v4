@@ -35,10 +35,17 @@ def create_figure():
                                                                     input_shapes)
     
     tflite_model = converter.convert()
-    image_path = 'static/2ca98d21a076b2ce.jpg'
-    with open(image_path, 'rb+') as f:
+    image = 'static/2ca98d21a076b2ce.jpg'
+    image = tf.compat.v1.image.decode_jpeg(image)
+
+    # image = tf.keras.preprocessing.image_dataset_from_directory(
+    #     "uploads", labels='inferred', label_mode='int', class_names=None,
+    #     color_mode='rgb', batch_size=32, image_size=(256, 256), shuffle=True, seed=None,
+    #     validation_split=None, subset=None, interpolation='bilinear', follow_links=False)
+
+    with open(image, 'rb') as f:
         feeds = {'image': [f.read()]}
-        results = tflite_model(feeds)
+    results = tflite_model(feeds)
 
     # load annotations to decode classification result
     with open('annotations/instances_val2017.json') as f:
