@@ -56,7 +56,7 @@ def create_figure():
         img.save(imageBuffer, format="JPEG")
         img = imageBuffer.getvalue()
 
-        sigmoid_tensor = sess.graph.get_tensor_by_name('convert_scores:0')
+        sigmoid_tensor = sess.graph.get_tensor_by_name('scale_logits/y:0')
         predictions = sess.run(sigmoid_tensor,
                                {'DecodeJpeg/contents:0': img})
         predictions = np.squeeze(predictions)
