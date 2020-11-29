@@ -36,7 +36,7 @@ def create_figure():
                                                                     input_shapes)
     converter.optimizations = [tf.lite.Optimize.DEFAULT]
     tflite_model = converter.convert()
-    open("converted_model.tflite", "wb").write(tflite_model)
+    open("uploads/converted_model.tflite", "wb").write(tflite_model)
 
     image = 'static/2ca98d21a076b2ce.jpg'
 
