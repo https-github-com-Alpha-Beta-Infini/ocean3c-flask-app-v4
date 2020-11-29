@@ -25,9 +25,9 @@ def create_figure():
     # launch predictor and run inference on an arbitrary image in the validation dataset
     graph_def_file = "ssdlite_mobiledet_cpu_320x320_coco_2020_05_19/frozen_graph.pb"
 
-    input_arrays = ["input"]
+    input_arrays = ["normalized_input_image_tensor"]
     output_arrays = ["raw_outputs"]
-    input_shapes = {"input": [1, 320, 320, 3]}
+    input_shapes = {"normalized_input_image_tensor": [1, 320, 320, 3]}
 
     converter = tf.compat.v1.lite.TFLiteConverter.from_frozen_graph(graph_def_file,
                                                                     input_arrays,
