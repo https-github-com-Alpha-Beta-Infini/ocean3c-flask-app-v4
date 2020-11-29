@@ -54,7 +54,7 @@ def create_figure():
 
     # draw picture and bounding boxes
     fig, ax = plt.subplots(figsize=(10, 10))
-    ax.imshow(Image.open(image_path).convert('RGB'))
+    ax.imshow(Image.open(image).convert('RGB'))
     wanted = results['scores'][0] > 0.1
     for xyxy, label_no_bg in zip(results['boxes'][0][wanted], results['classes'][0][wanted]):
         xywh = xyxy[0], xyxy[1], xyxy[2] - xyxy[0], xyxy[3] - xyxy[1]
