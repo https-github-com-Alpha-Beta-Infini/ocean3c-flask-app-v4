@@ -71,7 +71,7 @@ def create_figure():
     # Use `tensor()` in order to get a pointer to the tensor.
     results = interpreter.get_tensor(output_details[0]['index'])
     results = tf.compat.v1.ensure_shape(results, [4])
-    tf.compat.v1.reshape(results, (4,), name=None)
+    tf.compat.v1.reshape(results, [1, 2034, 4], name=None)
 
     # load annotations to decode classification result
     with open('annotations/instances_val2017.json') as f:
