@@ -39,7 +39,7 @@ def create_figure():
 
     # launch predictor and run inference on an arbitrary image in the validation dataset
     with Image.open(image) as img:
-        feeds = {'image': io.BytesIO(img)}
+        feeds = {'image': img}
     results = tflite_model(feeds)
 
     # load annotations to decode classification result
