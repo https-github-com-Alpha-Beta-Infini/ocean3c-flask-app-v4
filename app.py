@@ -45,12 +45,22 @@ def create_figure():
     image = 'static/2ca98d21a076b2ce.jpg'
 
     # launch predictor and run inference on an arbitrary image in the validation dataset
-    with Image.open(image) as img:
-        img = tf.keras.preprocessing.image.img_to_array(img)
-        img_array = np.array(img)
-        img_array = {'DecodeJpeg:0': img_array}
+    # with Image.open(image) as img:
+        # img = tf.keras.preprocessing.image.img_to_array(img)
+        # img_array = np.array(img)
+        # img_array = {'DecodeJpeg:0': img_array}
+    with tf.Session() as sess:
+        imageBuffer = io.BytesIO()
+        img = Image.open(image)
+        img.save(imageBuffer, format="JPEG")
+        img = imageBuffer.getvalue()
 
-    results = tflite_model(img_array)
+        softmax_tensor = sess.graph.get_tensor_by_name('final_result:0')
+        predictions = sess.run(softmax_tensor,
+                               {'DecodeJpeg/contents:0': img})
+        predictions = np.squeeze(predictions)
+
+    results = tflite_model(predictions)
 
     # load annotations to decode classification result
     with open('annotations/instances_val2017.json') as f:
