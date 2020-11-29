@@ -99,14 +99,6 @@ def hello_world():
     return render_template('index.html', processed_image=processed_image)
 
 
-# @app.route('/classify')
-# def plot_jpg():
-#     figure = create_figure()
-#     output = io.BytesIO()
-#     FigureCanvas(figure).print_jpg(output)
-#     return Response(output.getvalue(), mimetype='image/jpeg')
-
-
 @app.route('/upload_file', methods=['GET', 'POST'])
 def upload_file():
     if request.method == 'POST':
