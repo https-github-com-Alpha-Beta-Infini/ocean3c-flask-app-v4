@@ -8,7 +8,6 @@ import matplotlib.pyplot as plt
 import matplotlib.patches as patches
 from matplotlib.backends.backend_agg import FigureCanvasAgg as FigureCanvas
 from werkzeug.utils import secure_filename
-import numpy as np
 from numpy import asarray
 
 
@@ -47,9 +46,9 @@ def create_figure():
 
     # launch predictor and run inference on an arbitrary image in the validation dataset
     with Image.open(image) as img:
-        img = tf.image.decode_jpeg(img, channels=3)
-        img = tf.compat.v1.lite.convert_to_tensor(img)
-        img = {'DecodeJpeg:0': img}
+        img_array = asarray(img)
+        img_tensor = tf.compat.v1.lite.convert_to_tensor(img_array)  # need to convert to a tensor first
+        img = {'DecodeJpeg:0': img_tensor}
     results = tflite_model(img)
 
     # load annotations to decode classification result
