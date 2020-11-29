@@ -35,6 +35,7 @@ def create_figure():
                                                                     output_arrays,
                                                                     input_shapes)
     converter.optimizations = [tf.lite.Optimize.DEFAULT]
+    converter.target_spec.supported_types = [tf.float16]
     tflite_model = converter.convert()
     open("uploads/converted_model.tflite", "wb").write(tflite_model)
 
