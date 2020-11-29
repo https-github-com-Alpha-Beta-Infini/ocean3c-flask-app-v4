@@ -37,7 +37,7 @@ def create_figure():
     tflite_model = converter.convert()
     image = 'static/2ca98d21a076b2ce.jpg'
 
-    with Image.open('test.jpg') as img:
+    with Image.open(image) as img:
         feeds = {'image': [img.read()]}
     results = tflite_model(feeds)
 
