@@ -49,7 +49,7 @@ def create_figure():
         # img = tf.keras.preprocessing.image.img_to_array(img)
         # img_array = np.array(img)
         # img_array = {'DecodeJpeg:0': img_array}
-    with tf.Session() as sess:
+    with tf.compat.v1.Session() as sess:
         imageBuffer = io.BytesIO()
         img = Image.open(image)
         img.save(imageBuffer, format="JPEG")
