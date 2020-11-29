@@ -9,24 +9,24 @@ import matplotlib.patches as patches
 from matplotlib.backends.backend_agg import FigureCanvasAgg as FigureCanvas
 from werkzeug.utils import secure_filename
 
-# UPLOAD_FOLDER = 'uploads'
-# ALLOWED_EXTENSIONS = {'jpg'}
+UPLOAD_FOLDER = 'uploads'
+ALLOWED_EXTENSIONS = {'jpg'}
 
 app = Flask(__name__)
-# app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
 
-# def allowed_file(filename):
-#     return '.' in filename and \
-#            filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
+def allowed_file(filename):
+    return '.' in filename and \
+           filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
 
 def create_figure():
     # launch predictor and run inference on an arbitrary image in the validation dataset
-    model_path = "yolo_v4_coco_saved_model"
-    yolo_pred_cpu = tf.compat.v1.lite.TFLiteConverter.from_saved_model(model_path)
+    model_path = "ssdlite_mobiledet_cpu_320x320_coco_2020_05_19"
+    converter = tf.compat.v1.lite.TFLiteConverter.from_keras_model_file(model_path)
     
-    tflite_model = yolo_pred_cpu.convert()
+    tflite_model = converter.convert()
     image_path = 'static/2ca98d21a076b2ce.jpg'
     with open(image_path, 'rb') as f:
         feeds = {'image': [f.read()]}
@@ -71,21 +71,24 @@ def hello_world():
 #     return Response(output.getvalue(), mimetype='image/jpeg')
 
 
-# @app.route('/upload', methods = ['POST'])  
-# def upload():  
-#     if request.method == 'POST':  
-#         file = request.files['file']  
-#         file.save(os.path.join(app.config['UPLOAD_FOLDER'], "plot.jpg"))
-#         return redirect("/")
-#     return '''
-#     <!doctype html>
-#     <title>Upload new File</title>
-#     <h1>Upload new File</h1>
-#     <form method=post enctype=multipart/form-data>
-#       <input type=file name=file>
-#       <input type=submit value=Upload>
-#     </form>
-#     '''
+@app.route('/uploads', methods=['GET', 'POST'])
+def upload_file():
+    if request.method == 'POST':
+        # check if the post request has the file part
+        if 'file' not in request.files:
+            flash('No file part')
+            return redirect(request.url)
+        file = request.files['file']
+        # if user does not select file, browser also
+        # submit an empty part without filename
+        if file.filename == '':
+            flash('No selected file')
+            return redirect(request.url)
+        if file and allowed_file(file.filename):
+            filename = secure_filename(file.filename)
+            file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+            return redirect(url_for('uploaded_file',
+                                    filename=filename))
 
 
 if __name__ == "__main__":
