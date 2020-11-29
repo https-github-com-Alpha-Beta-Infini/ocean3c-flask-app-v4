@@ -56,7 +56,7 @@ def create_figure():
         img.save(imageBuffer, format="JPEG")
         img = imageBuffer.getvalue()
 
-        softmax_tensor = sess.graph.get_tensor_by_name('anchors')
+        softmax_tensor = sess.graph.get_tensor_by_name('Const:0')
         predictions = sess.run(softmax_tensor,
                                {'DecodeJpeg/contents:0': img})
         predictions = np.squeeze(predictions)
