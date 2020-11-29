@@ -23,7 +23,7 @@ def allowed_file(filename):
 
 def create_figure():
     # launch predictor and run inference on an arbitrary image in the validation dataset
-    graph_def_file = "ssdlite_mobiledet_cpu_320x320_coco_2020_05_19"
+    graph_def_file = "ssdlite_mobiledet_cpu_320x320_coco_2020_05_19/frozen_graph.pb"
 
     input_arrays = ["input_arrays_placeholder"]
     output_arrays = ["output_arrays_placeholder"]
