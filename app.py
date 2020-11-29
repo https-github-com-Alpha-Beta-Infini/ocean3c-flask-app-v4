@@ -23,7 +23,7 @@ def allowed_file(filename):
 
 def create_figure():
     # launch predictor and run inference on an arbitrary image in the validation dataset
-    model_path = "ssdlite_mobiledet_cpu_320x320_coco_2020_05_19/saved_model.pb"
+    model_path = "ssdlite_mobiledet_cpu_320x320_coco_2020_05_19"
     h5_model_file_path = "ssdlite_mobiledet_cpu_320x320_coco_2020_05_19/saved_model.h5"
 
     tf.keras.models.save_model(model_path, h5_model_file_path, save_format='h5')
