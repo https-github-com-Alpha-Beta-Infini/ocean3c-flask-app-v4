@@ -23,11 +23,9 @@ def allowed_file(filename):
 
 def create_figure():
     # launch predictor and run inference on an arbitrary image in the validation dataset
-    model_path = "ssdlite_mobiledet_cpu_320x320_coco_2020_05_19"
+    model_file_path = "ssdlite_mobiledet_cpu_320x320_coco_2020_05_19/saved_model.pb"
 
-    imported = tf.saved_model.load(model_path)
-
-    converter = tf.compat.v1.lite.TFLiteConverter.from_saved_model(imported)
+    converter = tf.compat.v1.lite.TFLiteConverter.from_keras_model_file(model_file_path)
     
     tflite_model = converter.convert()
     image_path = 'static/2ca98d21a076b2ce.jpg'
