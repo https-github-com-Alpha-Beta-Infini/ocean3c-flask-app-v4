@@ -28,7 +28,7 @@ def create_figure():
 
     tf.keras.models.save_model(model_path, h5_model_file_path, save_format='h5')
 
-    converter = tf.compat.v1.lite.TFLiteConverter.from_keras_model_file()
+    converter = tf.compat.v1.lite.TFLiteConverter.from_keras_model_file(h5_model_file_path)
     
     tflite_model = converter.convert()
     image_path = 'static/2ca98d21a076b2ce.jpg'
