@@ -35,8 +35,6 @@ def create_figure():
                                                                     input_arrays,
                                                                     output_arrays,
                                                                     input_shapes)
-    # converter.optimizations = [tf.lite.Optimize.DEFAULT]
-    # converter.target_spec.supported_types = [tf.float16]
     tflite_model = converter.convert()
 
     with open('ssdlite_mobiledet_cpu_320x320_coco_2020_05_19/model.tflite', 'wb') as f:
@@ -46,8 +44,8 @@ def create_figure():
 
     # launch predictor and run inference on an arbitrary image in the validation dataset
     with Image.open(image) as img:
-        img_array = asarray(img)
-        img_tensor = tf.compat.v1.lite.convert_to_tensor(img_array)  # need to convert to a tensor first
+        img_array = asarray(img)  # first convert to a numpy array
+        img_tensor = tf.compat.v1.lite.convert_to_tensor(img_array)  # then need to convert to a tensor
         img = {'DecodeJpeg:0': img_tensor}
     results = tflite_model(img)
 
