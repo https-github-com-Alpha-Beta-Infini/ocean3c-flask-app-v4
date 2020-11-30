@@ -96,6 +96,9 @@ def create_figure():
     #     rx = rx + rect.get_width() / 2.0
     #     ax.annotate(label_info[label_no_bg + 1], (rx, ry), color='w', backgroundcolor='g', fontsize=10,
     #                 ha='center', va='center', bbox=dict(boxstyle='square,pad=0.01', fc='g', ec='none', alpha=0.5))
+
+    print(f'wanted: {wanted}')
+
     fig.savefig('uploads/plot.jpg')
     plt.show()
     return fig
