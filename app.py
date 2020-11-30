@@ -75,6 +75,7 @@ def create_figure():
     json_path = os.path.join('annotations', 'instances_val2017.json')
 
     with open(json_path, 'r') as f:
+        f.seek(0)
         annotate_json = json.load(f)
 
     label_info = {idx + 1: cat['name'] for idx, cat in enumerate(annotate_json['categories'])}
