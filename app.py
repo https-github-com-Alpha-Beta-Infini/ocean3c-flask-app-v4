@@ -76,7 +76,7 @@ def create_figure():
 
     with open(json_path, 'rb+') as f:
         f.seek(0)
-        decoded_hand = json.loads(f.read())
+        decoded_hand = json.loads(f.read().decode("utf-8"))
 
     label_info = {idx + 1: cat['name'] for idx, cat in enumerate(decoded_hand['categories'])}
 
