@@ -61,7 +61,6 @@ def create_figure():
 
     # Test the model on random input data.
     # input_shape = input_details[0]['shape']
-    input_len = np.array([1, 3], dtype=np.int32)
     input_data = tf.compat.v1.expand_dims(img_array, axis=0)
     interpreter.set_tensor(input_details[0]['index'], input_data)
 
@@ -73,7 +72,9 @@ def create_figure():
     tf.compat.v1.reshape(results, [1, 2034, 4], name=None)
 
     # load annotations to decode classification result
-    with open('annotations/instances_val2017.json') as f:
+    json_path = os.path.join('annotations', 'instances_val2017')
+
+    with open(json_path, "w", encoding="utf-8") as f:
         annotate_json = json.load(f)
     label_info = {idx + 1: cat['name'] for idx, cat in enumerate(annotate_json['categories'])}
 
