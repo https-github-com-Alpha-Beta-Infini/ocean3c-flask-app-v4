@@ -75,8 +75,8 @@ def create_figure():
     json_path = os.path.join('annotations', 'instances_val2017.json')
 
     with open(json_path) as f:
-        encoded_hand = json.dumps(f, errors='ignore')
-        decoded_hand = json.loads(encoded_hand, errors='ignore')
+        encoded_hand = json.dumps(f, indent=0, separators=(',', ':'))
+        decoded_hand = json.loads(encoded_hand)
 
     label_info = {idx + 1: cat['name'] for idx, cat in enumerate(decoded_hand['categories'])}
 
