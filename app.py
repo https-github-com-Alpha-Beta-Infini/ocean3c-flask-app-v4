@@ -71,6 +71,7 @@ def create_figure():
     # Use `tensor()` in order to get a pointer to the tensor.
     results = interpreter.get_tensor(output_details[0]['index'])
     print(f'results: {results}')
+    print(f'results_shape: {results.shape}')
 
     tf.compat.v1.reshape(results, [1, 2034, 4], name=None)
 
