@@ -87,6 +87,7 @@ def create_figure():
     fig, ax = plt.subplots(figsize=(10, 10))
     ax.imshow(Image.open(image).convert('RGB'))
     wanted = results[results > 0.1]
+
     # for xyxy, label_no_bg in zip(wanted,
     #                              annotate_json['categories']):
     #     xywh = xyxy[0], xyxy[1], xyxy[2] - xyxy[0], xyxy[3] - xyxy[1]
