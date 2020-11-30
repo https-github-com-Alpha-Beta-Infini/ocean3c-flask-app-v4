@@ -10,6 +10,7 @@ from matplotlib.backends.backend_agg import FigureCanvasAgg as FigureCanvas
 from werkzeug.utils import secure_filename
 from numpy import asarray
 import numpy as np
+import time
 
 
 UPLOAD_FOLDER = 'uploads'
@@ -22,6 +23,15 @@ app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 def allowed_file(filename):
     return '.' in filename and \
            filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
+
+
+def load_labels(filename):
+    # with open(filename, 'r') as f:
+    #     return [line.strip() for line in f.readlines()]
+    with open('./annotations/instances_val2017.txt', 'r') as handle:
+        annotate_json = json.load(handle)
+
+    return [line.strip() for line in annotate_json.readlines()]
 
 
 def create_figure():
@@ -58,51 +68,55 @@ def create_figure():
     # Get input and output tensors.
     input_details = interpreter.get_input_details()
     output_details = interpreter.get_output_details()
+
+    # check the type of the input tensor
+    floating_model = input_details[0]['dtype'] == np.float32
+
     print(f'output_details: {output_details}')
 
-    # Test the model on random input data.
-    # input_shape = input_details[0]['shape']
-    input_data = tf.compat.v1.expand_dims(img_array, axis=0)
-    # interpreter.set_tensor(input_details[0]['index'], input_data)
-    interpreter.set_tensor(input_details[0], input_data)
+    height = input_details[0]['shape'][1]
+    width = input_details[0]['shape'][2]
+    img = Image.open(image).resize((width, height))
 
+    # add N dim
+    input_data = np.expand_dims(img, axis=0)
+
+    # Test the model on random input data.
+    input_shape = input_details[0]['shape']
+    # input_data = tf.compat.v1.expand_dims(img_array, axis=0)
+    interpreter.set_tensor(input_details[0]['index'], input_data)
+
+    start_time = time.time()
     interpreter.invoke()
+    stop_time = time.time()
 
     # The function `get_tensor()` returns a copy of the tensor data.
     # Use `tensor()` in order to get a pointer to the tensor.
-    # results = interpreter.get_tensor(output_details[0]['index'])
-    results = interpreter.get_tensor(output_details[0])
+    output_data = interpreter.get_tensor(output_details[0]['index'])
+    results = np.squeeze(output_data)
+
+    top_k = results.argsort()[-5:][::-1]
+    labels = load_labels('./annotations/instances_val2017.txt')
+
+    for i in top_k:
+        if floating_model:
+            print('{:08.6f}: {}'.format(float(results[i]), labels[i]))
+        else:
+            print('{:08.6f}: {}'.format(float(results[i] / 255.0), labels[i]))
+
+    PIL_image = Image.fromarray(np.uint8(results)).convert('RGB')
+
+    print('time: {:.3f}ms'.format((stop_time - start_time) * 1000))
 
     print(f'results: {results}')
     print(f'results_shape: {results.shape}')
 
-    tf.compat.v1.reshape(results, [1, 2034, 4], name=None)
+    # # load annotations to decode classification result
+    # with open('./annotations/instances_val2017.txt', 'r') as handle:
+    #     annotate_json = json.load(handle)
+    # label_info = {idx + 1: cat['name'] for idx, cat in enumerate(annotate_json['categories'])}
 
-    # load annotations to decode classification result
-    with open('./annotations/instances_val2017.txt', 'r') as handle:
-        annotate_json = json.load(handle)
-    label_info = {idx + 1: cat['name'] for idx, cat in enumerate(annotate_json['categories'])}
-
-    # draw picture and bounding boxes
-    fig, ax = plt.subplots(figsize=(10, 10))
-    ax.imshow(Image.open(image).convert('RGB'))
-    wanted = results[results > 0.1]
-
-    # for xyxy, label_no_bg in zip(wanted,
-    #                              annotate_json['categories']):
-    #     xywh = xyxy[0], xyxy[1], xyxy[2] - xyxy[0], xyxy[3] - xyxy[1]
-    #     rect = patches.Rectangle((xywh[0], xywh[1]), xywh[2], xywh[3], linewidth=1, edgecolor='g', facecolor='none')
-    #     ax.add_patch(rect)
-    #     rx, ry = rect.get_xy()
-    #     rx = rx + rect.get_width() / 2.0
-    #     ax.annotate(label_info[label_no_bg + 1], (rx, ry), color='w', backgroundcolor='g', fontsize=10,
-    #                 ha='center', va='center', bbox=dict(boxstyle='square,pad=0.01', fc='g', ec='none', alpha=0.5))
-
-    print(f'wanted: {wanted}')
-
-    fig.savefig('uploads/plot.jpg')
-    plt.show()
-    return fig
+    return PIL_image
 
 
 @app.route('/')
