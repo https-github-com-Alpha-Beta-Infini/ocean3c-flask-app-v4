@@ -81,8 +81,9 @@ def create_figure():
     # draw picture and bounding boxes
     fig, ax = plt.subplots(figsize=(10, 10))
     ax.imshow(Image.open(image).convert('RGB'))
-    wanted = results['convert_scores'][0] > 0.1
-    for xyxy, label_no_bg in zip(results['box_encodings'][0][wanted], results['class_predictions'][0][wanted]):
+    wanted = results[results > 0.1]
+    for xyxy, label_no_bg in zip(results['raw_outputs/box_encodings'][0][wanted],
+                                 results['raw_outputs/class_predictions'][0][wanted]):
         xywh = xyxy[0], xyxy[1], xyxy[2] - xyxy[0], xyxy[3] - xyxy[1]
         rect = patches.Rectangle((xywh[0], xywh[1]), xywh[2], xywh[3], linewidth=1, edgecolor='g', facecolor='none')
         ax.add_patch(rect)
