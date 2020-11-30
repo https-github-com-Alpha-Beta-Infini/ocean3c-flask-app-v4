@@ -70,11 +70,11 @@ def create_figure():
     # The function `get_tensor()` returns a copy of the tensor data.
     # Use `tensor()` in order to get a pointer to the tensor.
     results = interpreter.get_tensor(output_details[0]['index'])
+    print(f'results: {results}')
 
     results_name = interpreter.get_tensor(output_details[0]['name'])
     print(f'results_name: {results_name}')
 
-    print(f'results: {results}')
     tf.compat.v1.reshape(results, [1, 2034, 4], name=None)
 
     # load annotations to decode classification result
