@@ -72,7 +72,7 @@ def create_figure():
     tf.compat.v1.reshape(results, [1, 2034, 4], name=None)
 
     # load annotations to decode classification result
-    json_path = os.path.join('./annotations', 'instances_val2017')
+    json_path = os.path.join('annotations', 'instances_val2017.json')
 
     with open(json_path, "r") as f:
         annotate_json = json.loads(f.read())
