@@ -75,9 +75,10 @@ def create_figure():
     json_path = os.path.join('annotations', 'instances_val2017.json')
 
     with open(json_path) as f:
-        annotate_json = json.loads(f.read())
+        encoded_hand = json.dumps(f)
+        decoded_hand = json.loads(encoded_hand)
 
-    label_info = {idx + 1: cat['name'] for idx, cat in enumerate(annotate_json['categories'])}
+    label_info = {idx + 1: cat['name'] for idx, cat in enumerate(decoded_hand['categories'])}
 
     # draw picture and bounding boxes
     fig, ax = plt.subplots(figsize=(10, 10))
