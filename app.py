@@ -70,7 +70,7 @@ def create_figure():
     output_details = interpreter.get_output_details()
 
     # check the type of the input tensor
-    floating_model = input_details[0]['dtype'] == np.float32
+    # floating_model = input_details[0]['dtype'] == np.float32
 
     print(f'output_details: {output_details}')
 
@@ -99,10 +99,10 @@ def create_figure():
     labels = load_labels('./annotations/instances_val2017.txt')
 
     for i in top_k:
-        if floating_model:
-            print('{:08.6f}: {}'.format(float(results[i]), labels[i]))
-        else:
-            print('{:08.6f}: {}'.format(float(results[i] / 255.0), labels[i]))
+        # if floating_model:
+        #     print('{:08.6f}: {}'.format(float(results[i]), labels[i]))
+        # else:
+        print('{:08.6f}: {}'.format(float(results[i] / 255.0), labels[i]))
 
     PIL_image = Image.fromarray(np.uint8(results)).convert('RGB')
 
