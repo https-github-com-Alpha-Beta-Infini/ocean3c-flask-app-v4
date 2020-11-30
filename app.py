@@ -87,15 +87,15 @@ def create_figure():
     fig, ax = plt.subplots(figsize=(10, 10))
     ax.imshow(Image.open(image).convert('RGB'))
     wanted = results[results > 0.1]
-    for xyxy, label_no_bg in zip(wanted,
-                                 annotate_json['categories']):
-        xywh = xyxy[0], xyxy[1], xyxy[2] - xyxy[0], xyxy[3] - xyxy[1]
-        rect = patches.Rectangle((xywh[0], xywh[1]), xywh[2], xywh[3], linewidth=1, edgecolor='g', facecolor='none')
-        ax.add_patch(rect)
-        rx, ry = rect.get_xy()
-        rx = rx + rect.get_width() / 2.0
-        ax.annotate(label_info[label_no_bg + 1], (rx, ry), color='w', backgroundcolor='g', fontsize=10,
-                    ha='center', va='center', bbox=dict(boxstyle='square,pad=0.01', fc='g', ec='none', alpha=0.5))
+    # for xyxy, label_no_bg in zip(wanted,
+    #                              annotate_json['categories']):
+    #     xywh = xyxy[0], xyxy[1], xyxy[2] - xyxy[0], xyxy[3] - xyxy[1]
+    #     rect = patches.Rectangle((xywh[0], xywh[1]), xywh[2], xywh[3], linewidth=1, edgecolor='g', facecolor='none')
+    #     ax.add_patch(rect)
+    #     rx, ry = rect.get_xy()
+    #     rx = rx + rect.get_width() / 2.0
+    #     ax.annotate(label_info[label_no_bg + 1], (rx, ry), color='w', backgroundcolor='g', fontsize=10,
+    #                 ha='center', va='center', bbox=dict(boxstyle='square,pad=0.01', fc='g', ec='none', alpha=0.5))
     fig.savefig('uploads/plot.jpg')
     plt.show()
     return fig
