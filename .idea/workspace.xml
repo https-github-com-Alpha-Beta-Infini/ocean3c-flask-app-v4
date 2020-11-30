@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="590fdacc-7dae-44cc-8eec-355393a74e0b" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/app.py" beforeDir="false" afterPath="$PROJECT_DIR$/app.py" afterDir="false" />
-    </list>
+    <list default="true" id="590fdacc-7dae-44cc-8eec-355393a74e0b" name="Default Changelist" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -66,7 +64,7 @@
       <option name="presentableId" value="Default" />
       <updated>1606608779862</updated>
       <workItem from="1606608780911" duration="20142000" />
-      <workItem from="1606716777026" duration="9036000" />
+      <workItem from="1606716777026" duration="9436000" />
     </task>
     <servers />
   </component>
@@ -88,5 +86,9 @@
     </state>
     <state x="454" y="168" width="602" height="522" key="find.popup/0.23.1440.847@0.23.1440.847" timestamp="1606611264702" />
     <state x="590" y="244" width="602" height="524" key="find.popup/0.23.1440.849@0.23.1440.849" timestamp="1606710710639" />
+    <state x="616" y="194" width="670" height="676" key="search.everywhere.popup" timestamp="1606731535711">
+      <screen x="0" y="23" width="1440" height="847" />
+    </state>
+    <state x="616" y="194" width="670" height="676" key="search.everywhere.popup/0.23.1440.847@0.23.1440.847" timestamp="1606731535711" />
   </component>
 </project>

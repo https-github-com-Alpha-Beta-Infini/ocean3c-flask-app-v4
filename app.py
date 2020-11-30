@@ -79,7 +79,7 @@ def create_figure():
     img = Image.open(image).resize((width, height))
 
     # add N dim
-    input_data = np.expand_dims(img, axis=0)
+    input_data = np.expand_dims(img, axis=0, dtype=np.float32)
 
     # Test the model on random input data.
     input_shape = input_details[0]['shape']
@@ -93,7 +93,7 @@ def create_figure():
     # The function `get_tensor()` returns a copy of the tensor data.
     # Use `tensor()` in order to get a pointer to the tensor.
     output_data = interpreter.get_tensor(output_details[0]['index'])
-    results = np.squeeze(output_data)
+    results = np.squeeze(output_data, dtype=np.float32)
 
     top_k = results.argsort()[-5:][::-1]
     labels = load_labels('./annotations/instances_val2017.txt')
