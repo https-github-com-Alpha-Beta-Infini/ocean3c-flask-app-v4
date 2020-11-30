@@ -63,7 +63,8 @@ def create_figure():
     # Test the model on random input data.
     # input_shape = input_details[0]['shape']
     input_data = tf.compat.v1.expand_dims(img_array, axis=0)
-    interpreter.set_tensor(input_details[0]['index'], input_data)
+    # interpreter.set_tensor(input_details[0]['index'], input_data)
+    interpreter.set_tensor(input_details, input_data)
 
     interpreter.invoke()
 
