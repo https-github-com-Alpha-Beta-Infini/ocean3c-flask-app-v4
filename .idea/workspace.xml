@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="590fdacc-7dae-44cc-8eec-355393a74e0b" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/annotations/instances_val2017.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app.py" beforeDir="false" afterPath="$PROJECT_DIR$/app.py" afterDir="false" />
     </list>
@@ -83,9 +84,10 @@
     </state>
     <state x="468" y="229" key="#com.intellij.fileTypes.FileTypeChooser/0.23.1440.847@0.23.1440.847" timestamp="1606622266826" />
     <state x="468" y="229" key="#com.intellij.fileTypes.FileTypeChooser/0.23.1440.848@0.23.1440.848" timestamp="1606639650767" />
-    <state x="454" y="168" width="602" height="522" key="find.popup" timestamp="1606611264702">
-      <screen x="0" y="23" width="1440" height="847" />
+    <state x="590" y="244" width="602" height="524" key="find.popup" timestamp="1606710710639">
+      <screen x="0" y="23" width="1440" height="849" />
     </state>
     <state x="454" y="168" width="602" height="522" key="find.popup/0.23.1440.847@0.23.1440.847" timestamp="1606611264702" />
+    <state x="590" y="244" width="602" height="524" key="find.popup/0.23.1440.849@0.23.1440.849" timestamp="1606710710639" />
   </component>
 </project>
