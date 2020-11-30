@@ -71,8 +71,8 @@ def create_figure():
     # Use `tensor()` in order to get a pointer to the tensor.
     results = interpreter.get_tensor(output_details[0]['index'])
 
-    results_box_encodings = interpreter.get_tensor(output_details[0]['name']['raw_outputs/box_encodings'])
-    results_class_predictions = interpreter.get_tensor(output_details[0]['name']['raw_outputs/class_predictions'])
+    results_name = interpreter.get_tensor(output_details[0]['name'])
+    print(f'results_name: {results_name}')
 
     print(f'results: {results}')
     tf.compat.v1.reshape(results, [1, 2034, 4], name=None)
@@ -86,8 +86,8 @@ def create_figure():
     fig, ax = plt.subplots(figsize=(10, 10))
     ax.imshow(Image.open(image).convert('RGB'))
     wanted = results[results > 0.1]
-    for xyxy, label_no_bg in zip(results_box_encodings[wanted],
-                                 results_class_predictions[wanted]):
+    for xyxy, label_no_bg in zip(results_name['raw_outputs/box_encodings'][wanted],
+                                 results_name['raw_outputs/class_predictions'][wanted]):
         xywh = xyxy[0], xyxy[1], xyxy[2] - xyxy[0], xyxy[3] - xyxy[1]
         rect = patches.Rectangle((xywh[0], xywh[1]), xywh[2], xywh[3], linewidth=1, edgecolor='g', facecolor='none')
         ax.add_patch(rect)
