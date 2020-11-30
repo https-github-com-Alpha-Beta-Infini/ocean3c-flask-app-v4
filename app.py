@@ -74,10 +74,9 @@ def create_figure():
     # load annotations to decode classification result
     json_path = os.path.join('annotations', 'instances_val2017.json')
 
-    with open(json_path, encoding='utf-8', errors='ignore') as f:
+    with open(json_path, 'r') as f:
         annotate_json = json.load(f)
-        annotate_json = json.dumps(annotate_json)
-        annotate_json = json.loads(annotate_json)
+
     label_info = {idx + 1: cat['name'] for idx, cat in enumerate(annotate_json['categories'])}
 
     # draw picture and bounding boxes
