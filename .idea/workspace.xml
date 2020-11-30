@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="590fdacc-7dae-44cc-8eec-355393a74e0b" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app.py" beforeDir="false" afterPath="$PROJECT_DIR$/app.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -73,6 +74,10 @@
     <option name="version" value="3" />
   </component>
   <component name="WindowStateProjectService">
+    <state x="570" y="115" key="#Inspections" timestamp="1606705807560">
+      <screen x="0" y="23" width="1440" height="848" />
+    </state>
+    <state x="570" y="115" key="#Inspections/0.23.1440.848@0.23.1440.848" timestamp="1606705807560" />
     <state x="468" y="229" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1606639650767">
       <screen x="0" y="23" width="1440" height="848" />
     </state>
